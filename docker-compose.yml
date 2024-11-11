@@ -18,7 +18,7 @@ services:
       - marketing.db.data:/var/lib/postgresql/data
  
   marketing.api:
-    image: aykhan151618/baim.ms-vacancies:latest
+    image: aykhan151618/baim.ms-marketing:latest
     container_name: marketing.api
     build:
       context: ./Marketing.API
