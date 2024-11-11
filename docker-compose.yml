@@ -1,8 +1,6 @@
 networks:
   default:
     driver: bridge
-  gateway-network:
-    external: true
 
 services:  
   marketing.db:
@@ -30,7 +28,6 @@ services:
       - CONNECTION_STRING=Host=marketing.db;Database=BaimVezitka;Username=postgres;Password=admin;Port=5432;
     networks:
       - default
-      - gateway-network
     ports:
       - "8081:8080"
     depends_on:
