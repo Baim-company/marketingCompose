@@ -1,0 +1,37 @@
+networks:
+  default:
+    driver: bridge
+
+services:  
+  marketing.db:
+    container_name: marketing.db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: BaimVezitka
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    networks:
+      - default
+    volumes:
+      - marketing.db.data:/var/lib/postgresql/data
+ 
+  marketing.api:
+    image: aykhan151618/baim.ms-vacancies:latest
+    container_name: marketing.api
+    build:
+      context: ./Marketing.API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - CONNECTION_STRING=Host=marketing.db;Database=BaimVezitka;Username=postgres;Password=admin;Port=5432;
+    networks:
+      - default
+    ports:
+      - "8081:8080"
+    depends_on:
+      - marketing.db
+
+volumes: 
+   marketing.db.data:
